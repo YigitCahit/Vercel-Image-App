@@ -100,8 +100,16 @@ export default function DashboardClient({
     }
   }
 
-  const copyToClipboard = (url: string, id: string) => {
-    navigator.clipboard.writeText(url)
+  const getShortUrl = (id: string) => {
+    if (typeof window !== 'undefined') {
+      return `${window.location.origin}/i/${id}`
+    }
+    return `/i/${id}`
+  }
+
+  const copyToClipboard = (id: string) => {
+    const shortUrl = getShortUrl(id)
+    navigator.clipboard.writeText(shortUrl)
     setCopiedId(id)
     setTimeout(() => setCopiedId(null), 2000)
   }
@@ -233,13 +241,13 @@ export default function DashboardClient({
                     />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                       <button
-                        onClick={() => copyToClipboard(image.url, image.id)}
+                        onClick={() => copyToClipboard(image.id)}
                         className="bg-white text-gray-900 px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
                       >
                         {copiedId === image.id ? '✓ Kopyalandı' : 'Link Kopyala'}
                       </button>
                       <a
-                        href={image.url}
+                        href={`/i/${image.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-gray-900 p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -253,6 +261,13 @@ export default function DashboardClient({
                   <div className="p-3">
                     <p className="text-sm font-medium text-gray-900 truncate" title={image.filename}>
                       {image.filename}
+                    </p>
+                    <p 
+                      className="text-xs text-indigo-600 truncate cursor-pointer hover:underline mt-1"
+                      onClick={() => copyToClipboard(image.id)}
+                      title="Kopyalamak için tıkla"
+                    >
+                      /i/{image.id}
                     </p>
                     <div className="flex items-center justify-between mt-1">
                       <span className="text-xs text-gray-500">
