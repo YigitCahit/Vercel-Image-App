@@ -103,7 +103,7 @@ npm i -g vercel
 # Vercel'e giriş
 vercel login
 
-# Projeyi bağlayın
+# Projeyi bağlayın 
 vercel link
 
 # Environment variables'ları çekin
