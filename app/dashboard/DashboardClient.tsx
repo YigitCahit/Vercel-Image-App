@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 interface ImageData {
   id: string
@@ -138,9 +139,9 @@ export default function DashboardClient({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
@@ -148,15 +149,16 @@ export default function DashboardClient({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-gray-900">Görsel Hosting</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Görsel Hosting</h1>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gray-600 text-sm">
+            <ThemeToggle />
+            <span className="text-gray-600 dark:text-gray-300 text-sm">
               {user.name || user.email}
             </span>
             <button
               onClick={handleLogout}
-              className="text-gray-500 hover:text-gray-700 text-sm font-medium"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm font-medium"
             >
               Çıkış Yap
             </button>
@@ -173,8 +175,8 @@ export default function DashboardClient({
           onDrop={handleDrop}
           className={`border-2 border-dashed rounded-2xl p-8 text-center transition-colors ${
             dragActive
-              ? 'border-indigo-500 bg-indigo-50'
-              : 'border-gray-300 hover:border-gray-400'
+              ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
+              : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
           }`}
         >
           <input
@@ -187,13 +189,13 @@ export default function DashboardClient({
             id="file-upload"
           />
           <div className="mb-4">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto">
+              <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
             </div>
           </div>
-          <p className="text-gray-600 mb-2">
+          <p className="text-gray-600 dark:text-gray-400 mb-2">
             Resimlerinizi buraya sürükleyin veya
           </p>
           <label
@@ -204,34 +206,34 @@ export default function DashboardClient({
           >
             {uploading ? 'Yükleniyor...' : 'Dosya Seçin'}
           </label>
-          <p className="text-gray-400 text-sm mt-2">
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
             PNG, JPG, GIF, WebP (max 10MB)
           </p>
         </div>
 
         {/* Images Grid */}
         <div className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Resimleriniz ({images.length})
           </h2>
           
           {images.length === 0 ? (
-            <div className="bg-white rounded-xl p-12 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center">
+              <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <p className="text-gray-500">Henüz resim yüklemediniz</p>
+              <p className="text-gray-500 dark:text-gray-400">Henüz resim yüklemediniz</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {images.map((image) => (
                 <div
                   key={image.id}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
+                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
                 >
-                  <div className="aspect-square relative bg-gray-100">
+                  <div className="aspect-square relative bg-gray-100 dark:bg-gray-700">
                     <Image
                       src={image.url}
                       alt={image.filename}
@@ -259,24 +261,24 @@ export default function DashboardClient({
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="text-sm font-medium text-gray-900 truncate" title={image.filename}>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate" title={image.filename}>
                       {image.filename}
                     </p>
                     <p 
-                      className="text-xs text-indigo-600 truncate cursor-pointer hover:underline mt-1"
+                      className="text-xs text-indigo-600 dark:text-indigo-400 truncate cursor-pointer hover:underline mt-1"
                       onClick={() => copyToClipboard(image.id)}
                       title="Kopyalamak için tıkla"
                     >
                       /i/{image.id}
                     </p>
                     <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {formatSize(image.size)}
                       </span>
                       <button
                         onClick={() => handleDelete(image.id)}
                         disabled={deletingId === image.id}
-                        className="text-red-500 hover:text-red-700 text-xs font-medium disabled:opacity-50"
+                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-xs font-medium disabled:opacity-50"
                       >
                         {deletingId === image.id ? 'Siliniyor...' : 'Sil'}
                       </button>
