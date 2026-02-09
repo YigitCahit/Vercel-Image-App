@@ -1,9 +1,22 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTheme } from './ThemeProvider'
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800" />
+    )
+  }
 
   return (
     <button
