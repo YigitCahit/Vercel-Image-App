@@ -168,4 +168,4 @@ Uygulama http://localhost:3000 adresinde çalışacak.
 
 ## 📄 Lisans
 
-MIT
+AGPL v3.0.
